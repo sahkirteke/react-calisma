@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-
+import React, { useState } from "react"; 
 import "./App.css";
 import Person from "./Person/Person";
 
-class App extends Component {
-  state = {
+const app = props => {
+
+  const [personsState , setPersonsState] =useState({
     persons: [
       {
         name: "Alattin",
@@ -16,22 +16,28 @@ class App extends Component {
       },
       {
         name: "ouz",
+
         age: 125,
-      },
-    ],
-    otherState: "bazı değerler içün",
-  };
-  switchNameHandler = () => {
+      }
+    ]
+    
+  });
+
+  const [otherState, setOtherState]= useState('bazı değişmeler');
+
+  console.log(personsState, otherState);
+
+  const switchNameHandler = (newName) => {
     // console.log('tıklandınız');
     // this.state.person[0].name = 'eleeetttin';
-    this.setState({
+    setPersonsState({
       persons: [
         {
-          name: "Eleeetttinnn",
+          name: newName,
           age: 27,
         },
         {
-          name: "husamettin",
+          name: "husaddddettin",
           age: 25,
         },
         {
@@ -39,33 +45,34 @@ class App extends Component {
           age: 15,
         },
       ],
+      otherState: personsState.otherState
     });
   };
-
-  render() {
+  
     return (
       <div className="App">
         <h1>React projesine hoşgeldiniz</h1>
         <h1>selam</h1>
-        <button onClick={this.switchNameHandler}>isim değiştir.</button>
+        <button onClick={switchNameHandler.bind(this, 'eleeeetddiin')}>isim değiştir.</button>
         <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
+          name={personsState.persons[0].name}
+          age={personsState.persons[0].age}
         />
         <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-        >
-          mahallemin ağaçlarını severim
+          name={personsState.persons[1].name}
+          age={personsState.persons[1].age}
+          click={switchNameHandler.bind(this, 'eleeeetssssddiin')}>mahallemin ağaçlarını severim
         </Person>
         <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
+          name={personsState.persons[2].name}
+          age={personsState.persons[2].age}
         />
       </div>
     );
     //  return   React.createElement('div',{className:'App'} , React.createElement('h2',null , 'react projesi calisti'));
-  }
+  
 }
 
-export default App;
+export default app;
+
+
