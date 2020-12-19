@@ -1,102 +1,94 @@
-import React, { useState } from "react"; 
-import { render } from "react-dom";
+import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-const app = props => {
-
-  const [personsState , setPersonsState] =useState({
+class App extends Component {
+  state = {
     persons: [
-      {
-        name: "Alattin",
-        age: 27,
-      },
-      {
-        name: "husamettin",
-        age: 25,
-      },
-      {
-        name: "ouz",
+      { name: "Husam", age: 28 },
+      { name: "Alettin", age: 29 },
+      { name: "Ouz", age: 26 },
+    ],
+    otherState: "some other value",
+    showPersons :false 
+  };
 
-        age: 125,
-      }
-    ]
-    
-  });
-
-  const [otherState, setOtherState]= useState('bazı değişmeler');
-
-  console.log(personsState, otherState);
-
-  const switchNameHandler = (newName) => {
-    // console.log('tıklandınız');
-    // this.state.person[0].name = 'eleeetttin';
-    setPersonsState({
+  switchNameHandler = (newName) => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState({
       persons: [
-        {
-          name: newName,
-          age: 27,
-        },
-        {
-          name: "husaddddettin",
-          age: 25,
-        },
-        {
-          name: "ouz",
-          age: 15,
-        },
+        { name: newName, age: 28 },
+        { name: "husamu", age: 29 },
+        { name: "Ouz", age: 27 },
       ],
-      otherState: personsState.otherState
     });
   };
- 
-  const nameChangedHandler = (event) => {
 
-
-    setPersonsState({
-       persons: [
-        {
-          name: "aloş",
-          age: 27,
-        },
-        {
-          name: event.target.value,
-          age: 25,
-        },
-        {
-          name: "ouz",
-          age: 28,
-        },
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: "husamm", age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: "Ouz", age: 26 },
       ],
-
-    })
+    });
+  };
+   togglePersonsHandler = ()=> {
+      const doesShow = this.state.showPersons;
+      this.setState({showPersons: !doesShow}); 
   }
-  
-    return (
-      <div className="App">
-        <h1>React projesine hoşgeldiniz</h1>
-        <h1>selam</h1>
-        <button onClick={switchNameHandler.bind(this, 'eleeeetddiin')}>isim değiştir.</button>
-        <Person
-          name={personsState.persons[0].name}
-          age={personsState.persons[0].age}
+
+  render() {
+    const style = {
+      backgroundColor: "white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px",
+      cursor: "pointer",
+    };
+    let persons= null;
+    if (this.state.showPersons ){
+      persons= (
+        <div>
+          {this.state.persons.map(person => {
+            return <Person name ={person.name} 
+            age={person.age}/>
+          })}
+        {/* <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
         />
         <Person
-          name={personsState.persons[1].name}
-          age={personsState.persons[1].age}
-          click={switchNameHandler.bind(this, 'eleeeetssssddiin')}
-          changed ={nameChangedHandler}>mahallemin ağaçlarını severim
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, "Husam!")}
+          changed={this.nameChangedHandler}
+        >
+          My Hobbies: Racing
         </Person>
         <Person
-          name={personsState.persons[2].name}
-          age={personsState.persons[2].age}
-        />
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age}
+        /> */}
+        </div> 
+      )
+    }
+    return (
+      <div className="App">
+        <h1>React projem</h1>
+        <h2>Selam</h2>
+        <button
+          style={style}
+          onClick={this.togglePersonsHandler}
+        >
+          Göster kendini
+        </button>
+        {persons}
       </div>
     );
-    //  return   React.createElement('div',{className:'App'} , React.createElement('h2',null , 'react projesi calisti'));
-  
+    
+  }
 }
 
-export default app;
-
-
+export default App;
