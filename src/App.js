@@ -1,4 +1,5 @@
 import React, { useState } from "react"; 
+import { render } from "react-dom";
 import "./App.css";
 import Person from "./Person/Person";
 
@@ -48,6 +49,28 @@ const app = props => {
       otherState: personsState.otherState
     });
   };
+ 
+  const nameChangedHandler = (event) => {
+
+
+    setPersonsState({
+       persons: [
+        {
+          name: "aloş",
+          age: 27,
+        },
+        {
+          name: event.target.value,
+          age: 25,
+        },
+        {
+          name: "ouz",
+          age: 28,
+        },
+      ],
+
+    })
+  }
   
     return (
       <div className="App">
@@ -61,7 +84,8 @@ const app = props => {
         <Person
           name={personsState.persons[1].name}
           age={personsState.persons[1].age}
-          click={switchNameHandler.bind(this, 'eleeeetssssddiin')}>mahallemin ağaçlarını severim
+          click={switchNameHandler.bind(this, 'eleeeetssssddiin')}
+          changed ={nameChangedHandler}>mahallemin ağaçlarını severim
         </Person>
         <Person
           name={personsState.persons[2].name}
