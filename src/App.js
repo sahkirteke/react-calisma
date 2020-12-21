@@ -1,6 +1,24 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+import styled from "styled-components";
+
+
+const StyledButton = styled.button`
+
+background-color: ${props => props.alt ? `red`: `green`} ;
+color: white;
+font: inherit;
+border: 1px solid blue;
+padding:  8px;
+cursor: pointer;
+
+&:hover {
+  background-color:${props => props.alt ? `salmon`: `lightgreen`};
+  color: black;
+}
+
+`;
 
 class App extends Component {
   state = {
@@ -55,13 +73,13 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: "green",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-    };
+    // const style = {
+    //   backgroundColor: "green",
+    //   font: "inherit",
+    //   border: "1px solid blue",
+    //   padding: "8px",
+    //   cursor: "pointer",
+    // };
     let persons= null;
     if (this.state.showPersons ){
       persons= (
@@ -94,7 +112,7 @@ class App extends Component {
         /> */}
         </div> 
       )
-      style.backgroundColor='red';
+      // style.backgroundColor='red';
     }
 
     let classes =[];
@@ -108,14 +126,15 @@ class App extends Component {
     
     return (
       <div className="App">
+        
         <h1>React projem</h1>
         <p className={classes.join(' ')}>Selam ŞAK BURDAYIM ,NEDEN ORDASIN</p>
-        <button
-          style={style}
+        <StyledButton
+          alt={this.state.showPersons}
           onClick={this.togglePersonsHandler}
         >
           Göster kendini
-        </button>
+        </StyledButton>
         
         {persons}
 
