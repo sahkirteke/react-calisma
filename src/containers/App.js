@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "./App.css";
-import Person from "./Person/Person";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 // import styled from "styled-components";
 
 
@@ -21,6 +22,14 @@ import Person from "./Person/Person";
 // `;
 
 class App extends Component {
+
+  // constructor (props) {
+  //   super(props);
+  //   console.log('[App.js] constryuctr');
+  
+  // }
+
+
   state = {
     persons: [
       { id: 'a1',name: "Husam", age: 28 },
@@ -30,6 +39,8 @@ class App extends Component {
     otherState: "some other value",
     showPersons :false 
   };
+
+
 
   switchNameHandler = (newName) => {
     
@@ -80,68 +91,51 @@ class App extends Component {
     //   padding: "8px",
     //   cursor: "pointer",
     // };
-    let persons= null;
-    let btnClass ='';
-
-
+    let persons= null; 
 
     if (this.state.showPersons ){
-      persons= (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-            click={() => this.deletePersonHandler(index)}
-            name ={person.name} 
-            age={person.age}
-            key={person.id}
-            changed={(event)=> this.nameChangedHandler(event, person.id)}/>
-          })}
-
-         
-        {/* <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "Husam!")}
+      persons=
+          <Persons  
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
-        >
-          My Hobbies: Racing
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-        /> */}
-        </div> 
-      )
+          />
+          
+         
+        // {/* <Person
+        //   name={this.state.persons[0].name}
+        //   age={this.state.persons[0].age}
+        // />
+        // <Person
+        //   name={this.state.persons[1].name}
+        //   age={this.state.persons[1].age}
+        //   click={this.switchNameHandler.bind(this, "Husam!")}
+        //   changed={this.nameChangedHandler}
+        // >
+        //   My Hobbies: Racing
+        // </Person>
+        // <Person
+        //   name={this.state.persons[2].name}
+        //   age={this.state.persons[2].age}
+        // /> */}
+        
+      
       // style.backgroundColor='red';
 
-      btnClass=classes.Red;
+     
     }
 
-    const assignedClasses =[];
-    if(this.state.persons.length <=2){
-      assignedClasses.push(classes.red);
-      }
-    if (this.state.persons.length<=1){
-      assignedClasses.push(classes.bold);
-    }
-
+    
     
     return (
       <div className={classes.App}>
         
-        <h1>React projem</h1>
-        <p className={assignedClasses.join(' ')}>Selam ŞAK BURDAYIM ,NEDEN ORDASIN</p>
-        <button
-          className ={btnClass}
-          onClick={this.togglePersonsHandler}
-        >
-          Göster kendini
-        </button>
-        
+        <Cockpit 
+        title ={this.props.appTitle}
+        showPersons={this.state.showPersons}
+        persons ={this.state.persons}
+        clicked ={this.togglePersonsHandler}
+        />
         {persons}
 
       </div>
